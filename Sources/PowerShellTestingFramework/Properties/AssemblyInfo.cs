@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("PowerShellTestingFramework")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A testing framework for development of Power Shell cmdlets")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HiSolutions AG")]
+[assembly: AssemblyCompany("Torsten Zimmermann")]
 [assembly: AssemblyProduct("PowerShellTestingFramework")]
-[assembly: AssemblyCopyright("Copyright © HiSolutions AG 2018")]
+[assembly: AssemblyCopyright("Copyright © 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
