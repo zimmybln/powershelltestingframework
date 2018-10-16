@@ -1,6 +1,6 @@
 # PowerShell Testing Framework
 
-The PowerShell Testing Framework enables to develop PowerShell cmdlets test driven. It contains various tools, base class etc. to execute PowerShell scripts withing your Visual Studio and your favorite testing tool.
+The PowerShell Testing Framework enables to develop PowerShell cmdlets test driven. It contains various tools, base class etc. to execute PowerShell scripts withing your Visual Studio combined with your favorite testing tool. You may use within your script common commands and your custom cmdlets and you have the opportunity to inspect nearly all kinds of output, variables and results.
 
 ### Sample
 This sample uses XUnit as testing execution framework. The test `AddContactWithExplicitParameter` executes the script and checks if any errors occures. Finally it checks some assumtions about the result of the execution. The testfixture adds the module containing the custom cmdlet `Add-Contact`.
