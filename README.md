@@ -45,3 +45,6 @@ You'll find the binaries at nuget here:
     Install-Package Zimmy.PowerShell.Testing.Framework -Version 1.0.0
 
 It is the first release without any documentation except a lot of test and samples.
+
+### Wiki
+https://github.com/zimmybln/powershelltestingframework/wiki
