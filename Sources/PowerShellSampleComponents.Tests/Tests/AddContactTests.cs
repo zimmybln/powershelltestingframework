@@ -58,6 +58,7 @@ namespace PowerShellSampleComponents.Tests
 
             var contact = result.Output.OfType<Contact>().FirstOrDefault();
 
+            Assert.False(result.Errors.Any());
             Assert.NotNull(contact);
             Assert.True(contact.Id > 0);
             Assert.Equal("Martina", contact.FirstName);

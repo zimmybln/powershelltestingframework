@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Cmdlets\ShowLifecycleCmdlet.cs" />
     <Compile Include="Cmdlets\ShowTypesOfInformationCommand.cs" />
+    <Compile Include="Cmdlets\ShowUserChoiceCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\HostCommunicationTests.cs" />
     <Compile Include="Tests\LifecycleTests.cs" />

@@ -47,6 +47,7 @@
     <Compile Include="Components\HostCommunicationAdapter.cs" />
     <Compile Include="Components\PowerShellTestBase.cs" />
     <Compile Include="Components\ScriptExecuter.cs" />
+    <Compile Include="Components\TestEnvironment.cs" />
     <Compile Include="Components\TestEnvironmentHost.cs" />
     <Compile Include="Components\TestEnvironmentUserInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

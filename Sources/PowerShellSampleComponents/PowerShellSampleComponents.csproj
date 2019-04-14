@@ -85,6 +85,7 @@
       <DependentUpon>ContactsModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\XmlFileProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EntityFramework">
@@ -139,6 +140,7 @@
     <None Include="Data\ContactsModel.edmx.diagram">
       <DependentUpon>ContactsModel.edmx</DependentUpon>
     </None>
+    <None Include="Provider\PowerShellProvider.md" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

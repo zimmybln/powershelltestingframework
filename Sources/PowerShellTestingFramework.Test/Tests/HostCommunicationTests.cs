@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Management.Automation;
 using System.Management.Automation.Host;
@@ -267,6 +269,34 @@ namespace PowerShellTestingFramework.Test.Tests
             Assert.Equal(10, (int)result.Variables["one"]);
             Assert.Equal("The value is 10", result.Variables["two"]);
             
+        }
+
+        [Fact]
+        public void ReadUserChoice()
+        {
+            Func<string, string, Collection<ChoiceDescription>, int, int> choice =
+                delegate(string s, string caption, Collection<ChoiceDescription> choices, int defaultChoice)
+                {
+                    for(int i = 0;i< choices.Count;i++)
+                    {
+                        Write($"{i:00} {choices[i].Label}");
+                    }
+
+
+                    return 2;
+                };
+
+
+            var script = $@"
+
+                    Show-UserChoice 'Red', 'Blue', 'Green', 'Yellow'
+                ";
+
+            var result = RunScript(script, promptForChoice:choice);
+
+            var userchoice = result.Output.OfType<int>().First();
+
+            Assert.Equal(2, userchoice);
         }
     }
 }

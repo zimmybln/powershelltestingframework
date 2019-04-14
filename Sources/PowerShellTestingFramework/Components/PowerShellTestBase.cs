@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Management.Automation;
+using System.Management.Automation.Host;
 using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
@@ -238,11 +240,12 @@ namespace PowerShellTestingFramework.Components
         /// Führt ein PS Skript aus und liefert die dabei aufgetretenen Fehler und 
         /// in die Pipeline geschriebene Objekte.
         /// </summary>
-        protected ExecutionResult RunScript(string script, Func<string, string> promptForValueFunc = null, Dictionary<string, object> variables = null)
+        protected ExecutionResult RunScript(string script, Func<string, string> promptForValueFunc = null, Dictionary<string, object> variables = null, Func<string,string, Collection<ChoiceDescription>, int, int> promptForChoice = null)
         {
             HostCommunicationAdapter communicationAdapter = new HostCommunicationAdapter()
             {
-                OnPromptForValue = promptForValueFunc
+                OnPromptForValue = promptForValueFunc,
+                OnPromptForChoice = promptForChoice
             };
 
             var executer = new ScriptExecuter
