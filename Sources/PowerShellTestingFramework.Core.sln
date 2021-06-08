@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31229.75
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerShellTestingFramework.Core", "PowerShellTestingFramework.Core\PowerShellTestingFramework.Core.csproj", "{90D7D3A4-A7DE-4A8A-8816-51EB962FA4DB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerShellTestingFramework.Core.Tests", "PowerShellTestingFramework.Core.Tests\PowerShellTestingFramework.Core.Tests.csproj", "{2B3C1D01-F982-4C22-A123-448EC8E4EDD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{90D7D3A4-A7DE-4A8A-8816-51EB962FA4DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90D7D3A4-A7DE-4A8A-8816-51EB962FA4DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90D7D3A4-A7DE-4A8A-8816-51EB962FA4DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90D7D3A4-A7DE-4A8A-8816-51EB962FA4DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B3C1D01-F982-4C22-A123-448EC8E4EDD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B3C1D01-F982-4C22-A123-448EC8E4EDD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B3C1D01-F982-4C22-A123-448EC8E4EDD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B3C1D01-F982-4C22-A123-448EC8E4EDD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {41CA116A-0FAA-48AA-BDC4-6F9DF39A55DD}
+	EndGlobalSection
+EndGlobal
