@@ -33,6 +33,27 @@ namespace PowerShellTestingFramework.Test.Tests
         }
 
         [Test]
+        public void ReadTextFromHostByCustomCmdlet()
+        {
+            string fnPrompt(string message)
+            {
+                return "Hallo von hier";
+            }
+
+            var script = $@"
+
+                        $input = Test-Input 
+
+                        Write-Output $input
+
+                        ";
+
+            var result = RunScript(script, promptForValueFunc: fnPrompt);
+
+            Write(result);
+        }
+
+        [Test]
         public void ReadTextFromHost()
         {
             const string enteryourname = "Bitte gib deinen Namen ein";
