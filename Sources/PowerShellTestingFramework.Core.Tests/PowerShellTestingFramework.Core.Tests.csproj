@@ -17,8 +17,4 @@
     <ProjectReference Include="..\PowerShellTestingFramework.Core\PowerShellTestingFramework.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Provider\" />
-  </ItemGroup>
-
 </Project>
