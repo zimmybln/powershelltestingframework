@@ -12,7 +12,10 @@ namespace PowerShellTestingFramework.Components
     {
         public Func<string, string> OnPromptForValue { get; set; }
 
+        public Func<string, (string, string)> OnPromptForCredentials { get; set; }
+
         public Func<string, string, Collection<ChoiceDescription>, int, int> OnPromptForChoice { get; set; }
+
 
         public virtual string PromptForValue(string message)
         {

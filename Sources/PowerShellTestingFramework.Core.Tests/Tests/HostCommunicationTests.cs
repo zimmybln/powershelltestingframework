@@ -98,6 +98,18 @@ namespace PowerShellTestingFramework.Test.Tests
         }
 
         [Test]
+        public void ReadPassword()
+        {
+            var script = $@"
+                    Get-Password
+                ";
+
+            var result = RunScript(script);
+
+            Write(result);
+        }
+
+        [Test]
         public void WriteError()
         {
             var errormessage = "This is an error message";

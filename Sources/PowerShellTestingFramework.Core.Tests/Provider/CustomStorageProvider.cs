@@ -32,9 +32,11 @@ namespace PowerShellTestingFramework.Core.Tests.Provider
 
         protected override ProviderInfo Start(ProviderInfo providerInfo)
         {
-            var p = new CustomProviderInfo(providerInfo);
+            //var p = new CustomProviderInfo(providerInfo);
 
-            return p;
+            //return p;
+
+            return providerInfo;
         }
 
         //protected override Collection<PSDriveInfo> InitializeDefaultDrives()

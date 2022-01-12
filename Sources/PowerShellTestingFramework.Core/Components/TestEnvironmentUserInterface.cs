@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Management.Automation;
 using System.Management.Automation.Host;
+using System.Security;
 
 namespace PowerShellTestingFramework.Components
 {
@@ -61,7 +62,20 @@ namespace PowerShellTestingFramework.Components
                                                          string userName,
                                                          string targetName)
         {
-            throw new NotImplementedException();
+            SecureString secureString = new SecureString();
+
+            string password = "";
+
+            foreach (char c in password)
+            {
+                secureString.AppendChar(c);
+            }
+
+            secureString.MakeReadOnly();
+
+            PSCredential credential = new PSCredential("test", secureString);
+
+            return credential;
         }
 
         public override PSCredential PromptForCredential(
@@ -72,7 +86,20 @@ namespace PowerShellTestingFramework.Components
                                            PSCredentialTypes allowedCredentialTypes,
                                            PSCredentialUIOptions options)
         {
-            throw new NotImplementedException();
+            SecureString secureString = new SecureString();
+
+            string password = "123456";
+
+            foreach (char c in password)
+            {
+                secureString.AppendChar(c);
+            }
+
+            secureString.MakeReadOnly();
+
+            PSCredential credential = new PSCredential("test", secureString);
+
+            return credential;
         }
 
         public override string ReadLine()

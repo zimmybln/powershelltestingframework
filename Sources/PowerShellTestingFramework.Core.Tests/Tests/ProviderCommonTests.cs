@@ -23,16 +23,16 @@ namespace PowerShellTestingFramework.Core.Tests
         [Test]
         public void Test()
         {
-            var script = @"
+            //var script = @"
                
-                        Get-PSProvider
-                        Set-Location -Path 'NC:'
+            //            Get-PSProvider
+            //            Set-Location -Path 'NC:'
 
-                        ";
+            //            ";
 
-            var result = RunScript(script);
+            //var result = RunScript(script);
 
-            Write(result);
+            //Write(result);
         }
     }
 }
