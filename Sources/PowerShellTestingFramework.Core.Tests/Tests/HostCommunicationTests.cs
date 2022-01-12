@@ -100,13 +100,25 @@ namespace PowerShellTestingFramework.Test.Tests
         [Test]
         public void ReadPassword()
         {
+            string password = "SomePassword";
+
+
+            (string, string) RequestCredentials(string message)
+            {
+                return ("UserOne", password);
+            }
+            
             var script = $@"
-                    Get-Password
+                    $password = Get-Password
                 ";
 
-            var result = RunScript(script);
+            var result = RunScript(script, promptForCredentials:RequestCredentials);
 
             Write(result);
+
+            Assert.IsTrue(result.Variables.ContainsKey("password"));
+            // the value is stored as PSObject, that's why it is converted to string here
+            Assert.AreEqual(password, result.Variables["password"].ToString());
         }
 
         [Test]

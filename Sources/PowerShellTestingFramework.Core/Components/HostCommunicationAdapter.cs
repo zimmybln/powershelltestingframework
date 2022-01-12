@@ -27,5 +27,10 @@ namespace PowerShellTestingFramework.Components
         {
             return OnPromptForChoice?.Invoke(caption, message, choices, defaultChoice) ?? defaultChoice;
         }
+
+        public virtual (string, string) PromptForCredentials(string caption)
+        {
+            return OnPromptForCredentials?.Invoke(caption) ?? (null, null);
+        }
     }
 }

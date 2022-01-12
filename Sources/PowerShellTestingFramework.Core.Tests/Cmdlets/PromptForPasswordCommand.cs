@@ -28,8 +28,6 @@ namespace PowerShellTestingFramework.Core.Tests.Cmdlets
             {
                 WriteObject(ConvertSecureStringToString(credential.Password));
             }
-
-
         }
 
         private static string ConvertSecureStringToString(SecureString data)

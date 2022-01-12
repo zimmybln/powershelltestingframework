@@ -62,20 +62,7 @@ namespace PowerShellTestingFramework.Components
                                                          string userName,
                                                          string targetName)
         {
-            SecureString secureString = new SecureString();
-
-            string password = "";
-
-            foreach (char c in password)
-            {
-                secureString.AppendChar(c);
-            }
-
-            secureString.MakeReadOnly();
-
-            PSCredential credential = new PSCredential("test", secureString);
-
-            return credential;
+            return PromptForCredential(caption, message, userName, targetName, PSCredentialTypes.Default, PSCredentialUIOptions.None);
         }
 
         public override PSCredential PromptForCredential(
@@ -86,9 +73,14 @@ namespace PowerShellTestingFramework.Components
                                            PSCredentialTypes allowedCredentialTypes,
                                            PSCredentialUIOptions options)
         {
+            var credentials = _communicationAdapter.OnPromptForCredentials(message);
+
+            if (credentials.Item1 == null || credentials.Item2 == null)    
+                return null;
+
             SecureString secureString = new SecureString();
 
-            string password = "123456";
+            string password = credentials.Item2;
 
             foreach (char c in password)
             {
@@ -97,9 +89,7 @@ namespace PowerShellTestingFramework.Components
 
             secureString.MakeReadOnly();
 
-            PSCredential credential = new PSCredential("test", secureString);
-
-            return credential;
+            return new PSCredential(credentials.Item1, secureString);
         }
 
         public override string ReadLine()

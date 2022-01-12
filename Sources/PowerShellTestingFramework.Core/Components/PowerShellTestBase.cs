@@ -238,11 +238,15 @@ namespace PowerShellTestingFramework.Components
         /// Führt ein PS Skript aus und liefert die dabei aufgetretenen Fehler und 
         /// in die Pipeline geschriebene Objekte.
         /// </summary>
-        protected ExecutionResult RunScript(string script, Func<string, string> promptForValueFunc = null, Dictionary<string, object> variables = null)
+        protected ExecutionResult RunScript(string script, 
+            Func<string, string> promptForValueFunc = null, 
+            Dictionary<string, object> variables = null,
+            Func<string, (string, string)> promptForCredentials = null)
         {
             HostCommunicationAdapter communicationAdapter = new HostCommunicationAdapter()
             {
-                OnPromptForValue = promptForValueFunc
+                OnPromptForValue = promptForValueFunc,
+                OnPromptForCredentials =promptForCredentials
             };
 
             var executer = new ScriptExecuter
