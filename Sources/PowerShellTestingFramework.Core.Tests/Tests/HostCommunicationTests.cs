@@ -103,16 +103,16 @@ namespace PowerShellTestingFramework.Test.Tests
             string password = "SomePassword";
 
 
-            (string, string) RequestCredentials(string message)
+            string RequestPassword(string caption, string targetName, string userName)
             {
-                return ("UserOne", password);
+                return password;
             }
             
             var script = $@"
-                    $password = Get-Password
+                    $password = Get-Password ""Bitte gebe das Passwort ein"" ""mustermann"" ""Testenvironment""
                 ";
 
-            var result = RunScript(script, promptForCredentials:RequestCredentials);
+            var result = RunScript(script, promptForPassword:RequestPassword);
 
             Write(result);
 

@@ -241,12 +241,12 @@ namespace PowerShellTestingFramework.Components
         protected ExecutionResult RunScript(string script, 
             Func<string, string> promptForValueFunc = null, 
             Dictionary<string, object> variables = null,
-            Func<string, (string, string)> promptForCredentials = null)
+            PromptForPasswordHandler promptForPassword = null)
         {
             HostCommunicationAdapter communicationAdapter = new HostCommunicationAdapter()
             {
                 OnPromptForValue = promptForValueFunc,
-                OnPromptForCredentials =promptForCredentials
+                OnPromptForPassword = promptForPassword
             };
 
             var executer = new ScriptExecuter

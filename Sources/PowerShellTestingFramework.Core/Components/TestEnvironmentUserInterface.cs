@@ -73,14 +73,9 @@ namespace PowerShellTestingFramework.Components
                                            PSCredentialTypes allowedCredentialTypes,
                                            PSCredentialUIOptions options)
         {
-            var credentials = _communicationAdapter.OnPromptForCredentials(message);
-
-            if (credentials.Item1 == null || credentials.Item2 == null)    
-                return null;
+            var password = _communicationAdapter.OnPromptForPassword(message, targetName, userName);
 
             SecureString secureString = new SecureString();
-
-            string password = credentials.Item2;
 
             foreach (char c in password)
             {
@@ -89,7 +84,7 @@ namespace PowerShellTestingFramework.Components
 
             secureString.MakeReadOnly();
 
-            return new PSCredential(credentials.Item1, secureString);
+            return new PSCredential(userName, secureString);
         }
 
         public override string ReadLine()

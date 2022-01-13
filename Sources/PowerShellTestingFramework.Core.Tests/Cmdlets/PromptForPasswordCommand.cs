@@ -13,6 +13,16 @@ namespace PowerShellTestingFramework.Core.Tests.Cmdlets
     public class PromptForPasswordCommand : PSCmdlet
     {
 
+        [Parameter(Position=0, Mandatory = true)]
+        public string Message { get; set; }
+        
+        [Parameter(Position=1, Mandatory = true)]
+        public string User { get; set; }
+
+        [Parameter(Position = 2, Mandatory = true)]
+        public string Target { get; set; }
+
+
         public PromptForPasswordCommand()
         {
 
@@ -20,9 +30,7 @@ namespace PowerShellTestingFramework.Core.Tests.Cmdlets
 
         protected override void ProcessRecord()
         {
-            
-            PSCredential credential = this.Host.UI.PromptForCredential("asdf", "asdfasdf", "UserName", "TargetName");
-                                    
+            PSCredential credential = this.Host.UI.PromptForCredential(this.GetType().Name, Message, User, Target);
 
             if (credential != null)
             {
