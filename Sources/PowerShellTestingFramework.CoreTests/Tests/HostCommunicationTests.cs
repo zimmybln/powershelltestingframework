@@ -35,6 +35,20 @@ namespace PowerShellTestingFramework.Test.Tests
         }
 
         [Fact]
+        public void GetLocation()
+        {
+            var script = $@"
+
+                        Get-Location
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+        }
+
+        [Fact]
         public void ReadTextFromHost()
         {
             const string enteryourname = "Bitte gib deinen Namen ein";

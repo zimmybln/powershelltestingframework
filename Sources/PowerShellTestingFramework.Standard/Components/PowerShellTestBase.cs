@@ -16,7 +16,7 @@ namespace PowerShellTestingFramework.Components
     public abstract class PowerShellTestBase
     {
         private readonly Action<string> _outputAction;
-        private readonly Assembly _assemblyToTest = null;
+        private readonly Assembly? _assemblyToTest = null;
 
         protected PowerShellTestBase(Action<string> outputAction)
         {
@@ -51,9 +51,7 @@ namespace PowerShellTestingFramework.Components
                 if (obj is string)
                     continue;
 
-                var iteration = obj as IEnumerable;
-
-                if (iteration != null)
+                if (obj is IEnumerable iteration)
                 {
                     foreach (var i in iteration)
                     {
@@ -146,7 +144,7 @@ namespace PowerShellTestingFramework.Components
 
         }
 
-        protected void Write(WarningRecord warning)
+        protected void Write(WarningRecord? warning)
         {
             if (warning == null)
                 return;
@@ -154,7 +152,7 @@ namespace PowerShellTestingFramework.Components
             _outputAction?.Invoke($"\t{warning.Message}");
         }
 
-        protected void Write(InformationRecord information)
+        protected void Write(InformationRecord? information)
         {
             if (information == null)
                 return;
@@ -163,7 +161,7 @@ namespace PowerShellTestingFramework.Components
                 $"\t{information.MessageData.ToString()} (Tags: {string.Join(",", information.Tags)})");
         }
 
-        protected void Write(DebugRecord debug)
+        protected void Write(DebugRecord? debug)
         {
             if (debug == null)
                 return;
@@ -278,12 +276,14 @@ namespace PowerShellTestingFramework.Components
             Dictionary<string, object> variables = null,
             PromptForPasswordHandler promptForPassword = null)
         {
+            // Initializes the connection for communication between the execution and its environment
             HostCommunicationAdapter communicationAdapter = new HostCommunicationAdapter()
             {
                 OnPromptForValue = promptForValueFunc,
                 OnPromptForPassword = promptForPassword
             };
 
+            // Initialize the execution of the passed script
             var executer = new ScriptExecuter
             {
                 CommunicationAdapter = communicationAdapter,
@@ -294,8 +294,6 @@ namespace PowerShellTestingFramework.Components
             {
                 executer.Assemblies = new List<Assembly>(new[] { _assemblyToTest });
             }
-
-
 
             return executer.Execute(script);
         }
@@ -330,15 +328,5 @@ namespace PowerShellTestingFramework.Components
 
         //    return result;
         //}
-
-        protected virtual void OnTestShutDown()
-        {
-
-        }
-
-        public virtual void OnTestStart()
-        {
-
-        }
     }
 }
