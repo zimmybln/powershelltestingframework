@@ -6,7 +6,8 @@ using System.Management.Automation;
 using System.Text;
 using System.Threading.Tasks;
 using PowerShellSampleComponents.Cmdlets;
-using PowerShellSampleComponents.Data;
+using PowerShellSampleComponents.Core.Data;
+using PowerShellTestingFramework.Components;
 using Xunit;
 using Xunit.Abstractions;
 

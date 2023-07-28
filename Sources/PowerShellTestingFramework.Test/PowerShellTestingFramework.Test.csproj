@@ -10,10 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PowerShellTestingFramework.Test</RootNamespace>
     <AssemblyName>PowerShellTestingFramework.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -67,16 +68,16 @@
     <Compile Include="Tests\UsingVariablesTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PowerShellTestingFramework\PowerShellTestingFramework.csproj">
-      <Project>{f6aad996-f12b-4d59-bb4f-22704c61e3d4}</Project>
-      <Name>PowerShellTestingFramework</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PowerShellTestingFramework.Standard\PowerShellTestingFramework.csproj">
+      <Project>{3e7361ec-344b-4452-9b10-9e45f14ad01f}</Project>
+      <Name>PowerShellTestingFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
