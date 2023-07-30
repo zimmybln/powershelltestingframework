@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PowerShellSampleComponents.Tests</RootNamespace>
     <AssemblyName>PowerShellSampleComponents.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -44,6 +44,7 @@
     <Compile Include="Tests\AddContactTests.cs" />
     <Compile Include="Tests\GetContactTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\XmlFileProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.PowerShell.5.ReferenceAssemblies">
@@ -54,20 +55,25 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PowerShellSampleComponents\PowerShellSampleComponents.csproj">
-      <Project>{ea992f21-b662-44b0-9e4c-5c7da0616b54}</Project>
-      <Name>PowerShellSampleComponents</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PowerShellTestingFramework\PowerShellTestingFramework.csproj">
-      <Project>{f6aad996-f12b-4d59-bb4f-22704c61e3d4}</Project>
-      <Name>PowerShellTestingFramework</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.Config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestData\CommonData.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PowerShellSampleComponents.Core\PowerShellSampleComponents.Core.csproj">
+      <Project>{c072b9ad-b65c-408e-980a-ad5a8c5df30f}</Project>
+      <Name>PowerShellSampleComponents.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellTestingFramework.Standard\PowerShellTestingFramework.csproj">
+      <Project>{3e7361ec-344b-4452-9b10-9e45f14ad01f}</Project>
+      <Name>PowerShellTestingFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

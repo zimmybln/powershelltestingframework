@@ -5,6 +5,8 @@ using System.Collections.ObjectModel;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
+using System.Management.Automation;
+using System.Management.Automation.Host;
 using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
@@ -14,7 +16,7 @@ namespace PowerShellTestingFramework.Components
     public abstract class PowerShellTestBase
     {
         private readonly Action<string> _outputAction;
-        private readonly Assembly _assemblyToTest = null;
+        private readonly Assembly? _assemblyToTest = null;
 
         protected PowerShellTestBase(Action<string> outputAction)
         {
@@ -26,10 +28,10 @@ namespace PowerShellTestingFramework.Components
             _outputAction = outputAction;
             _assemblyToTest = assemblyToTest;
         }
-        
+
         protected string GetFileFromDirectory(string filename)
         {
-            string localpath = Path.GetDirectoryName(new Uri(this.GetType().Assembly.CodeBase).LocalPath);
+            string localpath = Path.GetDirectoryName(new Uri(GetType().Assembly.CodeBase).LocalPath);
             return Path.Combine(localpath, filename);
         }
 
@@ -46,12 +48,10 @@ namespace PowerShellTestingFramework.Components
 
                 Write(obj);
 
-                if (obj is String)
+                if (obj is string)
                     continue;
 
-                var iteration = obj as IEnumerable;
-
-                if (iteration != null)
+                if (obj is IEnumerable iteration)
                 {
                     foreach (var i in iteration)
                     {
@@ -61,12 +61,12 @@ namespace PowerShellTestingFramework.Components
             }
         }
 
-        protected void Write(ExecutionResult result, bool noItems = false)
+        protected ExecutionResult Write(ExecutionResult result, bool noItems = false)
         {
-            if (!String.IsNullOrWhiteSpace(result.Script))
+            if (!string.IsNullOrWhiteSpace(result.Script))
             {
                 _outputAction?.Invoke(result.Script);
-                _outputAction?.Invoke(String.Empty);
+                _outputAction?.Invoke(string.Empty);
             }
 
             var hostoutput = result.HostOutput;
@@ -79,7 +79,7 @@ namespace PowerShellTestingFramework.Components
                     _outputAction?.Invoke($"\t{line}");
                 }
             }
-            
+
             if (!noItems)
             {
                 _outputAction?.Invoke("Output");
@@ -115,6 +115,8 @@ namespace PowerShellTestingFramework.Components
                 _outputAction?.Invoke("Debug");
                 result.Debugs.ForEach(Write);
             }
+
+            return result;
         }
 
         protected void Write(ErrorRecord error)
@@ -132,7 +134,7 @@ namespace PowerShellTestingFramework.Components
                 _outputAction?.Invoke($"\t{error.Exception.Message}");
             }
 
-            if (!String.IsNullOrEmpty(error.ScriptStackTrace))
+            if (!string.IsNullOrEmpty(error.ScriptStackTrace))
             {
                 _outputAction?.Invoke($"\t{error.ScriptStackTrace}");
             }
@@ -144,7 +146,7 @@ namespace PowerShellTestingFramework.Components
 
         }
 
-        protected void Write(WarningRecord warning)
+        protected void Write(WarningRecord? warning)
         {
             if (warning == null)
                 return;
@@ -152,15 +154,16 @@ namespace PowerShellTestingFramework.Components
             _outputAction?.Invoke($"\t{warning.Message}");
         }
 
-        protected void Write(InformationRecord information)
+        protected void Write(InformationRecord? information)
         {
             if (information == null)
                 return;
 
-            _outputAction?.Invoke($"\t{information.MessageData.ToString()} (Tags: {String.Join(",", information.Tags)})");
+            _outputAction?.Invoke(
+                $"\t{information.MessageData.ToString()} (Tags: {string.Join(",", information.Tags)})");
         }
 
-        protected void Write(DebugRecord debug)
+        protected void Write(DebugRecord? debug)
         {
             if (debug == null)
                 return;
@@ -170,7 +173,7 @@ namespace PowerShellTestingFramework.Components
 
         protected void Write(string info)
         {
-            if (!String.IsNullOrEmpty(info))
+            if (!string.IsNullOrEmpty(info))
             {
                 _outputAction?.Invoke($"\t{info}");
             }
@@ -178,26 +181,58 @@ namespace PowerShellTestingFramework.Components
 
         protected void Write(object item, int indent = 1)
         {
-            string indentValue = new String('\t', indent);
+            string indentValue = new string('\t', indent);
 
             _outputAction?.Invoke($"{indentValue}{item.ToString()} (Type {item.GetType().Name})");
 
             if (item is string || item is int)
                 return;
 
-            if (item is IDynamicMetaObjectProvider)
+            if (item is IDictionary<string, object> dictionary)
             {
-                _outputAction?.Invoke($"{indentValue}Ja, ein dynamisches Object");
+                int maxSize = dictionary.Keys.Select(k => k.Length).Max();
+
+                foreach (KeyValuePair<string, object> pair in dictionary)
+                {
+                    var keyName = pair.Key + new string(' ', maxSize - pair.Key.Length);
+                    _outputAction?.Invoke($"{indentValue}{keyName} : {pair.Value} [{pair.Value?.GetType().Name}]");
+                }
+            }
+            else if (item is IDynamicMetaObjectProvider)
+            {
+                _outputAction?.Invoke($"{indentValue}Yes, a dynamic object");
             }
             else if (item is Dictionary<string, object>)
             {
-                _outputAction?.Invoke($"{indentValue}Ja, ein dictionary");
+                _outputAction?.Invoke($"{indentValue}Yes, a dictionary");
             }
             else if (item is PSCustomObject)
             {
-                _outputAction?.Invoke($"{indentValue}ja, ein PowerShellObject");
+                _outputAction?.Invoke($"{indentValue}Yes, a powershell object");
                 var psobject = (PSCustomObject)item;
+            }
+            else if (item is IEnumerable itemEnumerable)
+            {
+                var t = itemEnumerable.GetType().GetGenericArguments().FirstOrDefault();
 
+                if (t != null)
+                {
+                    var typeProperties = t.GetProperties();
+
+                    var maxLength = typeProperties.Select(p => p.Name.Length).Max() + 1;
+
+                    foreach (var piece in itemEnumerable)
+                    {
+                        _outputAction?.Invoke($"{indentValue} --- {t.FullName} ---");
+
+                        foreach (var property in typeProperties)
+                        {
+                            var propertyName = property.Name + new string(' ', maxLength - property.Name.Length);
+
+                            _outputAction?.Invoke($"{indentValue}{propertyName} : {property.GetValue(piece)?.ToString()}");
+                        }
+                    }
+                }
             }
             else
             {
@@ -238,14 +273,19 @@ namespace PowerShellTestingFramework.Components
         /// Führt ein PS Skript aus und liefert die dabei aufgetretenen Fehler und 
         /// in die Pipeline geschriebene Objekte.
         /// </summary>
-        protected ExecutionResult RunScript(string script, Func<string, string> promptForValueFunc = null, Dictionary<string, object> variables = null, Func<string,string, Collection<ChoiceDescription>, int, int> promptForChoice = null)
+        protected ExecutionResult RunScript(string script,
+            Func<string, string> promptForValueFunc = null,
+            Dictionary<string, object> variables = null,
+            PromptForPasswordHandler promptForPassword = null)
         {
+            // Initializes the connection for communication between the execution and its environment
             HostCommunicationAdapter communicationAdapter = new HostCommunicationAdapter()
             {
                 OnPromptForValue = promptForValueFunc,
-                OnPromptForChoice = promptForChoice
+                OnPromptForPassword = promptForPassword
             };
 
+            // Initialize the execution of the passed script
             var executer = new ScriptExecuter
             {
                 CommunicationAdapter = communicationAdapter,
@@ -254,10 +294,8 @@ namespace PowerShellTestingFramework.Components
 
             if (_assemblyToTest != null)
             {
-                executer.Assemblies = new List<Assembly>(new[] {_assemblyToTest});
+                executer.Assemblies = new List<Assembly>(new[] { _assemblyToTest });
             }
-
-
 
             return executer.Execute(script);
         }
@@ -269,38 +307,28 @@ namespace PowerShellTestingFramework.Components
         /// </summary>
         /// <param name="script"></param>
         /// <returns></returns>
-        protected ExecutionResult RunScriptSecured(string script)
-        {
-            PermissionSet permissions = new PermissionSet(PermissionState.Unrestricted);
+        //protected ExecutionResult RunScriptSecured(string script)
+        //{
+        //    PermissionSet permissions = new PermissionSet(PermissionState.Unrestricted);
 
-            AppDomain securedDomain = AppDomain.CreateDomain("script execution", null,
-                new AppDomainSetup
-                {
-                    ApplicationName = "script execute",
-                    ApplicationBase = Path.GetDirectoryName(new Uri(this.GetType().Assembly.CodeBase).LocalPath),
+        //    AppDomain securedDomain = AppDomain.CreateDomain("script execution", null,
+        //        new AppDomainSetup
+        //        {
+        //            ApplicationName = "script execute",
+        //            ApplicationBase = Path.GetDirectoryName(new Uri(this.GetType().Assembly.CodeBase).LocalPath),
 
-                },
-                permissions);
+        //        },
+        //        permissions);
 
-            var assemblyname = typeof(ScriptExecuter).Assembly.FullName;
+        //    var assemblyname = typeof(ScriptExecuter).Assembly.FullName;
 
-            ScriptExecuter executionproxy = securedDomain.CreateInstanceAndUnwrap(assemblyname, typeof(ScriptExecuter).FullName) as ScriptExecuter;
+        //    ScriptExecuter executionproxy = securedDomain.CreateInstanceAndUnwrap(assemblyname, typeof(ScriptExecuter).FullName) as ScriptExecuter;
 
-            ExecutionResult result = executionproxy.Execute(script);
+        //    ExecutionResult result = executionproxy.Execute(script);
 
-            AppDomain.Unload(securedDomain);
+        //    AppDomain.Unload(securedDomain);
 
-            return result;
-        }
-
-        protected virtual void OnTestShutDown()
-        {
-
-        }
-
-        public virtual void OnTestStart()
-        {
-
-        }
+        //    return result;
+        //}
     }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Zimmy.PowerShell.Testing.Framework</id>
+    <version>1.0</version>
+    <title>PowerShell Testing Framework</title>
+    <authors>Torsten Zimmermann</authors>
+    <owners>Torsten Zimmermann</owners>
+    <projectUrl>https://github.com/zimmybln/powershelltestingframework</projectUrl>
+    <!-- <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl> -->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Components for testdriven development of PowerShell cmdlets</description>
+    <releaseNotes>Initial package</releaseNotes>
+    <copyright>Copyright © 2018</copyright>
+    <tags>PowerShell C# Testdriven Development</tags>
+    <references>
+      <group targetFramework="net452">
+        <reference file="PowerShellTestingFramework.dll" />
+      </group>
+    </references>
+    <dependencies>
+      <dependency id="Microsoft.PowerShell.5.ReferenceAssemblies" version="1.1.0" />
+    </dependencies>
+  </metadata>
+</package>
