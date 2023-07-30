@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerShellTestingFramework", "PowerShellTestingFramework.Standard\PowerShellTestingFramework.csproj", "{3E7361EC-344B-4452-9B10-9E45F14AD01F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerShellTestingFramework.CoreTests", "PowerShellTestingFramework.CoreTests\PowerShellTestingFramework.CoreTests.csproj", "{1AF1B5F5-8CCE-42C9-97BE-010C1D89C037}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerShellTestingFramework.Tests", "PowerShellTestingFramework.CoreTests\PowerShellTestingFramework.Tests.csproj", "{1AF1B5F5-8CCE-42C9-97BE-010C1D89C037}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

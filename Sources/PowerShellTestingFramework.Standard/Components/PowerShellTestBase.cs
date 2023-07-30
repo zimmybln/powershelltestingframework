@@ -61,7 +61,7 @@ namespace PowerShellTestingFramework.Components
             }
         }
 
-        protected void Write(ExecutionResult result, bool noItems = false)
+        protected ExecutionResult Write(ExecutionResult result, bool noItems = false)
         {
             if (!string.IsNullOrWhiteSpace(result.Script))
             {
@@ -115,6 +115,8 @@ namespace PowerShellTestingFramework.Components
                 _outputAction?.Invoke("Debug");
                 result.Debugs.ForEach(Write);
             }
+
+            return result;
         }
 
         protected void Write(ErrorRecord error)
