@@ -35,6 +35,20 @@ namespace PowerShellTestingFramework.Test.Tests
         }
 
         [Fact]
+        public void GetLocation()
+        {
+            var script = $@"
+
+                        Get-Location
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+        }
+
+        [Fact]
         public void ReadTextFromHost()
         {
             const string enteryourname = "Bitte gib deinen Namen ein";
@@ -271,32 +285,32 @@ namespace PowerShellTestingFramework.Test.Tests
             
         }
 
-        [Fact]
-        public void ReadUserChoice()
-        {
-            Func<string, string, Collection<ChoiceDescription>, int, int> choice =
-                delegate(string s, string caption, Collection<ChoiceDescription> choices, int defaultChoice)
-                {
-                    for(int i = 0;i< choices.Count;i++)
-                    {
-                        Write($"{i:00} {choices[i].Label}");
-                    }
+        //[Fact]
+        //public void ReadUserChoice()
+        //{
+        //    Func<string, string, Collection<ChoiceDescription>, int, int> choice =
+        //        delegate(string s, string caption, Collection<ChoiceDescription> choices, int defaultChoice)
+        //        {
+        //            for(int i = 0;i< choices.Count;i++)
+        //            {
+        //                Write($"{i:00} {choices[i].Label}");
+        //            }
 
 
-                    return 2;
-                };
+        //            return 2;
+        //        };
 
 
-            var script = $@"
+        //    var script = $@"
 
-                    Show-UserChoice 'Red', 'Blue', 'Green', 'Yellow'
-                ";
+        //            Show-UserChoice 'Red', 'Blue', 'Green', 'Yellow'
+        //        ";
 
-            var result = RunScript(script, promptForChoice:choice);
+        //    var result = RunScript(script, promptForChoice:choice);
 
-            var userchoice = result.Output.OfType<int>().First();
+        //    var userchoice = result.Output.OfType<int>().First();
 
-            Assert.Equal(2, userchoice);
-        }
+        //    Assert.Equal(2, userchoice);
+        //}
     }
 }

@@ -1,15 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2035
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerShellSampleComponents", "PowerShellSampleComponents\PowerShellSampleComponents.csproj", "{EA992F21-B662-44B0-9E4C-5C7DA0616B54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerShellTestingFramework", "PowerShellTestingFramework.Standard\PowerShellTestingFramework.csproj", "{3E7361EC-344B-4452-9B10-9E45F14AD01F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerShellSampleComponents.Tests", "PowerShellSampleComponents.Tests\PowerShellSampleComponents.Tests.csproj", "{A65B3D80-2F1B-43A1-A91F-8D5304E4D573}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerShellTestingFramework", "PowerShellTestingFramework\PowerShellTestingFramework.csproj", "{F6AAD996-F12B-4D59-BB4F-22704C61E3D4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerShellTestingFramework.Test", "PowerShellTestingFramework.Test\PowerShellTestingFramework.Test.csproj", "{38B5F98B-F09E-4A1C-8E92-9DCDA6631911}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerShellTestingFramework.CoreTests", "PowerShellTestingFramework.CoreTests\PowerShellTestingFramework.CoreTests.csproj", "{1AF1B5F5-8CCE-42C9-97BE-010C1D89C037}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,22 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EA992F21-B662-44B0-9E4C-5C7DA0616B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA992F21-B662-44B0-9E4C-5C7DA0616B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA992F21-B662-44B0-9E4C-5C7DA0616B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA992F21-B662-44B0-9E4C-5C7DA0616B54}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A65B3D80-2F1B-43A1-A91F-8D5304E4D573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A65B3D80-2F1B-43A1-A91F-8D5304E4D573}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A65B3D80-2F1B-43A1-A91F-8D5304E4D573}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A65B3D80-2F1B-43A1-A91F-8D5304E4D573}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6AAD996-F12B-4D59-BB4F-22704C61E3D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6AAD996-F12B-4D59-BB4F-22704C61E3D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6AAD996-F12B-4D59-BB4F-22704C61E3D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6AAD996-F12B-4D59-BB4F-22704C61E3D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38B5F98B-F09E-4A1C-8E92-9DCDA6631911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38B5F98B-F09E-4A1C-8E92-9DCDA6631911}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38B5F98B-F09E-4A1C-8E92-9DCDA6631911}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38B5F98B-F09E-4A1C-8E92-9DCDA6631911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E7361EC-344B-4452-9B10-9E45F14AD01F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E7361EC-344B-4452-9B10-9E45F14AD01F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E7361EC-344B-4452-9B10-9E45F14AD01F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E7361EC-344B-4452-9B10-9E45F14AD01F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AF1B5F5-8CCE-42C9-97BE-010C1D89C037}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF1B5F5-8CCE-42C9-97BE-010C1D89C037}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AF1B5F5-8CCE-42C9-97BE-010C1D89C037}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AF1B5F5-8CCE-42C9-97BE-010C1D89C037}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
