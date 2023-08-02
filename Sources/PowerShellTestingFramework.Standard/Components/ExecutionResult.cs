@@ -43,5 +43,6 @@ namespace PowerShellTestingFramework.Components
         {
             _hostOutput.Add(value);
         }
+        
     }
 }
