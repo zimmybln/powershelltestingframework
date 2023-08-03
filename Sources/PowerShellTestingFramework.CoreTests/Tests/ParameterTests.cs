@@ -37,7 +37,7 @@ namespace PowerShellTestingFramework.Tests.Tests
         {
             var script = $@"
 
-                        Watch-DynamicParameter -DynamicType RuntimeDefinedDictionary -Age 20
+                        Watch-DynamicParameter -DynamicType RuntimeDefinedDictionary -Age 20 -Year 2010
 
                         ";
 
@@ -64,6 +64,34 @@ namespace PowerShellTestingFramework.Tests.Tests
                                                                                  Activity: "Watch-DynamicParameter",
                                                                                  Reason: nameof(ParameterBindingException) }));
 
+        }
+
+        [Fact]
+        public void WatchDefinedClass()
+        {
+            var script = $@"
+
+                        Watch-DynamicParameter -DynamicType DefinedClass -Age 20
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+        }
+
+        [Fact]
+        public void WatchDefinedClassWithParameters()
+        {
+            var script = $@"
+
+                        Watch-DynamicParameter -DynamicType DefinedClassWithParameters -Age 20 -Year 1990
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
         }
 
     }
