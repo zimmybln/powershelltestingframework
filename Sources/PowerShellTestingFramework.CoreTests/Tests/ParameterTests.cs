@@ -19,21 +19,10 @@ namespace PowerShellTestingFramework.Tests.Tests
 
         }
 
-        /*
-         *  - Einzelner dynamischer Parametertyp
-         *  - Sammlung dynamische Parametertypen
-         *  - Einzelner laufzeitdefinierter Typ
-         *  - Sammlung laufzeitdefinierte Typen
-         *  - Abhängigkeit von den Werten anderer Parameter
-         *
-         *
-         *
-         *
-         */
-
+        #region Dynamic Parameters
 
         [Fact]
-        public void WatchRuntimeDefinedDictionary()
+        public void UseDynamicParametersAsRuntimeDictionary()
         {
             var script = $@"
 
@@ -48,7 +37,7 @@ namespace PowerShellTestingFramework.Tests.Tests
         }
 
         [Fact]
-        public void WatchRuntimeDefinedParameter()
+        public void UseDynamicParametersAsSingleRuntimeParameter()
         {
             var script = $@"
 
@@ -67,7 +56,7 @@ namespace PowerShellTestingFramework.Tests.Tests
         }
 
         [Fact]
-        public void WatchDefinedClass()
+        public void UseDynamicParametersAsPredefinedClassWithOneParameter()
         {
             var script = $@"
 
@@ -81,7 +70,7 @@ namespace PowerShellTestingFramework.Tests.Tests
         }
 
         [Fact]
-        public void WatchDefinedClassWithParameters()
+        public void UseDynamicParametersAsPredefinedClassWithMoreParameters()
         {
             var script = $@"
 
@@ -94,5 +83,6 @@ namespace PowerShellTestingFramework.Tests.Tests
             Write(result);
         }
 
+        #endregion
     }
 }

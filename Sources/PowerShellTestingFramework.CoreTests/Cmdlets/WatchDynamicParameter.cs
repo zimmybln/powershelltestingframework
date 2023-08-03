@@ -28,7 +28,7 @@ namespace PowerShellTestingFramework.Tests.Cmdlets
         private object? _dynamicParameter = null;
 
         /// <summary>
-        /// 
+        /// Dynamic parameters are not queried until all static parameters have been set.
         /// </summary>
         /// <remarks>
         /// What does not work
@@ -37,40 +37,43 @@ namespace PowerShellTestingFramework.Tests.Cmdlets
         /// <returns></returns>
         public object? GetDynamicParameters()
         {
-            if (DynamicType == DynamicParameterType.RuntimeDefinedDictionary)
+            switch (DynamicType)
             {
-                var collection = new RuntimeDefinedParameterDictionary();
-
-                collection.Add("Age", new RuntimeDefinedParameter("Age", typeof(int), new Collection<Attribute>(new[]
+                case DynamicParameterType.RuntimeDefinedDictionary:
+                    _dynamicParameter = new RuntimeDefinedParameterDictionary
+                    {
+                        {
+                            "Age", new RuntimeDefinedParameter("Age", typeof(int), new (new[]
+                            {
+                                new ParameterAttribute() { Position = 1, Mandatory = true }
+                            }))
+                        },
+                        {
+                            "Year", new RuntimeDefinedParameter("Year", typeof(int), new (new[]
+                            {
+                                new ParameterAttribute() { Position = 2, Mandatory = true }
+                            }))
+                        }
+                    };
+                    break;
+                case DynamicParameterType.RuntimeDefinedParameter:
                 {
-                    new ParameterAttribute() { Position = 1, Mandatory = true }
-                })));
+                    var parameter = new RuntimeDefinedParameter("Age", typeof(int), new (new[]
+                    {
+                        new ParameterAttribute() { Position = 1, Mandatory = true }
+                    }));
 
-                collection.Add("Year", new RuntimeDefinedParameter("Year", typeof(int), new Collection<Attribute>( new[]
-                {
-                    new ParameterAttribute() { Position = 2, Mandatory = true}
-                })));
+                    _dynamicParameter = parameter;
+                    break;
+                }
+                case DynamicParameterType.DefinedClass:
+                    _dynamicParameter = new AgeDynamicParameter();
+                    break;
+                case DynamicParameterType.DefinedClassWithParameters:
+                    _dynamicParameter = new AgeAndYearDynamicParameter();
+                    break;
+            }
 
-                _dynamicParameter = collection;
-            }
-            else if (DynamicType == DynamicParameterType.RuntimeDefinedParameter)
-            {
-                var parameter = new RuntimeDefinedParameter("Age", typeof(int), new Collection<Attribute>(new[]
-                {
-                    new ParameterAttribute() { Position = 1, Mandatory = true }
-                }));
-
-                _dynamicParameter = parameter;
-            }
-            else if (DynamicType == DynamicParameterType.DefinedClass)
-            {
-                _dynamicParameter = new AgeDynamicParameter();
-            }
-            else if (DynamicType == DynamicParameterType.DefinedClassWithParameters)
-            {
-                _dynamicParameter = new AgeAndYearDynamicParameter();
-            }
-            
             return _dynamicParameter;
         }
 
