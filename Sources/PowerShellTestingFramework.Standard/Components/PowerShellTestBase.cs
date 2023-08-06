@@ -123,7 +123,7 @@ namespace PowerShellTestingFramework.Components
             return result;
         }
 
-        protected void Write(ErrorRecord error)
+        protected void Write(ErrorRecord? error)
         {
             if (error == null)
                 return;

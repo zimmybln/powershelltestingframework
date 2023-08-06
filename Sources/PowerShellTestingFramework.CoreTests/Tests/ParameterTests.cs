@@ -87,7 +87,37 @@ namespace PowerShellTestingFramework.Tests.Tests
 
         #region Parameter validation
 
+        [Fact]
+        public void ValidateStringLengthFailing()
+        {
+            var script = $@"
 
+                        Test-Parameters -Name 'Max'
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.NotNull(result.Errors.FirstOrDefault(err => err.Contains<ValidationMetadataException>()));
+        }
+
+        [Fact]
+        public void ValidateStringLength()
+        {
+            var script = $@"
+
+                        Test-Parameters -Name 'Maximilian'
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.False(result.Errors?.Any() ?? false);
+        }
 
         #endregion
 
