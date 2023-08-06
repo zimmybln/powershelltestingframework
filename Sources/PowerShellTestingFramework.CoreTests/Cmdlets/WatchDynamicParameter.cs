@@ -64,6 +64,8 @@ namespace PowerShellTestingFramework.Tests.Cmdlets
             }
             else if (DynamicType == DynamicParameterType.DefinedClass)
             {
+                WriteDebug($"Dynamic parameter {nameof(AgeDynamicParameter)} added");
+
                 _dynamicParameter = new AgeDynamicParameter();
             }
             else if (DynamicType == DynamicParameterType.DefinedClassWithParameters)

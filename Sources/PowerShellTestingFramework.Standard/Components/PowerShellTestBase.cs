@@ -18,6 +18,10 @@ namespace PowerShellTestingFramework.Components
         private readonly Action<string> _outputAction;
         private readonly Assembly? _assemblyToTest = null;
 
+        protected bool SkipHostOutput { get; set; }
+
+
+
         protected PowerShellTestBase(Action<string> outputAction)
         {
             _outputAction = outputAction;
@@ -71,7 +75,7 @@ namespace PowerShellTestingFramework.Components
 
             var hostoutput = result.HostOutput;
 
-            if (hostoutput.Any())
+            if (!SkipHostOutput && hostoutput.Any())
             {
                 _outputAction?.Invoke("Host");
                 foreach (var line in hostoutput)
@@ -80,7 +84,7 @@ namespace PowerShellTestingFramework.Components
                 }
             }
 
-            if (!noItems)
+            if (!noItems && (result.Output?.Any() ?? false))
             {
                 _outputAction?.Invoke("Output");
                 result.Output.ForEach(o => Write(o));

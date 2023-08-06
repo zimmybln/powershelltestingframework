@@ -16,22 +16,11 @@ namespace PowerShellTestingFramework.Tests.Tests
     {
         public ParameterTests(ITestOutputHelper output) : base(output.WriteLine, typeof(HostCommunicationTests).Assembly)
         {
-
+            SkipHostOutput = true;
         }
 
-        /*
-         *  - Einzelner dynamischer Parametertyp
-         *  - Sammlung dynamische Parametertypen
-         *  - Einzelner laufzeitdefinierter Typ
-         *  - Sammlung laufzeitdefinierte Typen
-         *  - Abhängigkeit von den Werten anderer Parameter
-         *
-         *
-         *
-         *
-         */
-
-
+        #region Dynamic Parameter
+        
         [Fact]
         public void WatchRuntimeDefinedDictionary()
         {
@@ -60,7 +49,7 @@ namespace PowerShellTestingFramework.Tests.Tests
 
             Write(result);
 
-            Assert.True(result.Errors.Any(err => err.CategoryInfo is { Category: ErrorCategory.InvalidArgument,
+            Assert.NotNull(result.Errors.FirstOrDefault(err => err.CategoryInfo is { Category: ErrorCategory.InvalidArgument,
                                                                                  Activity: "Watch-DynamicParameter",
                                                                                  Reason: nameof(ParameterBindingException) }));
 
@@ -93,6 +82,15 @@ namespace PowerShellTestingFramework.Tests.Tests
 
             Write(result);
         }
+
+        #endregion
+
+        #region Parameter validation
+
+
+
+        #endregion
+
 
     }
 }
