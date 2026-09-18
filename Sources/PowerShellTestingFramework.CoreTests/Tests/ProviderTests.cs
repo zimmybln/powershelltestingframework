@@ -1,5 +1,6 @@
 ﻿using PowerShellTestingFramework.Components;
 using PowerShellTestingFramework.Test.Tests;
+using PowerShellTestingFramework.Tests.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,17 +35,44 @@ namespace PowerShellTestingFramework.Tests
         }
 
         [Fact]
-        public void UseVirtualSpaceProvider()
+        public void CreateVirtualSpaceDrive()
         {
             var script = $@"
 
-                    Set-Location 'VirtualSpace'
+                        New-PSDrive -Name 'Virt' -PSProvider VirtualSpace -Root 'VirtualRoot'
 
-                    ";
+                        ";
 
             var result = RunScript(script);
 
             Write(result);
+
+            var driveInfo = result.Output.OfType<VirtualSpaceDriveInfo>().FirstOrDefault();
+
+            Assert.False(result.Errors?.Any() ?? false);
+            Assert.NotNull(driveInfo);
+            Assert.Equal("VirtualRoot", driveInfo.Root);
+        }
+
+        [Fact]
+        public void RemoveVirtualSpaceDrive()
+        {
+            var script = $@"
+
+                        New-PSDrive -Name 'Virt' -PSProvider VirtualSpace -Root 'VirtualRoot' | Out-Null
+
+                        Remove-PSDrive -Name 'Virt'
+
+                        Get-PSDrive -Name 'Virt' -ErrorAction SilentlyContinue
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.False(result.Errors?.Any() ?? false);
+            Assert.DoesNotContain(result.Output.OfType<VirtualSpaceDriveInfo>(), d => d.Name == "Virt");
         }
 
     }
