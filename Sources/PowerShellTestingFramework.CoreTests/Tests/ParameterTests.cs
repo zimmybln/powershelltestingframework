@@ -119,6 +119,198 @@ namespace PowerShellTestingFramework.Tests.Tests
             Assert.False(result.Errors?.Any() ?? false);
         }
 
+        [Fact]
+        public void ValidateRangeFailing()
+        {
+            var script = $@"
+
+                        Test-Parameters -Age 150
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.NotNull(result.Errors.FirstOrDefault(err => err.Contains<ValidationMetadataException>()));
+        }
+
+        [Fact]
+        public void ValidateRange()
+        {
+            var script = $@"
+
+                        Test-Parameters -Age 42
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.False(result.Errors?.Any() ?? false);
+        }
+
+        [Fact]
+        public void ValidateSetFailing()
+        {
+            var script = $@"
+
+                        Test-Parameters -Color 'Purple'
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.NotNull(result.Errors.FirstOrDefault(err => err.Contains<ValidationMetadataException>()));
+        }
+
+        [Fact]
+        public void ValidateSet()
+        {
+            var script = $@"
+
+                        Test-Parameters -Color 'Green'
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.False(result.Errors?.Any() ?? false);
+        }
+
+        [Fact]
+        public void ValidatePatternFailing()
+        {
+            var script = $@"
+
+                        Test-Parameters -Code 'ab12'
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.NotNull(result.Errors.FirstOrDefault(err => err.Contains<ValidationMetadataException>()));
+        }
+
+        [Fact]
+        public void ValidatePattern()
+        {
+            var script = $@"
+
+                        Test-Parameters -Code 'ABC123'
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.False(result.Errors?.Any() ?? false);
+        }
+
+        [Fact]
+        public void ValidateCountFailing()
+        {
+            var script = $@"
+
+                        Test-Parameters -Items @('a', 'b', 'c', 'd')
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.NotNull(result.Errors.FirstOrDefault(err => err.Contains<ValidationMetadataException>()));
+        }
+
+        [Fact]
+        public void ValidateCount()
+        {
+            var script = $@"
+
+                        Test-Parameters -Items @('a', 'b')
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.False(result.Errors?.Any() ?? false);
+        }
+
+        [Fact]
+        public void ValidateNotNullOrEmptyFailing()
+        {
+            var script = $@"
+
+                        Test-Parameters -RequiredValue ''
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.NotNull(result.Errors.FirstOrDefault(err => err.Contains<ValidationMetadataException>()));
+        }
+
+        [Fact]
+        public void ValidateNotNullOrEmpty()
+        {
+            var script = $@"
+
+                        Test-Parameters -RequiredValue 'value'
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.False(result.Errors?.Any() ?? false);
+        }
+
+        [Fact]
+        public void ValidateNotNullFailing()
+        {
+            var script = $@"
+
+                        Test-Parameters -Data $null
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.NotNull(result.Errors.FirstOrDefault(err => err.Contains<ValidationMetadataException>()));
+        }
+
+        [Fact]
+        public void ValidateNotNull()
+        {
+            var script = $@"
+
+                        Test-Parameters -Data 'value'
+
+                        ";
+
+            var result = RunScript(script);
+
+            Write(result);
+
+            Assert.False(result.Errors?.Any() ?? false);
+        }
+
         #endregion
 
 
